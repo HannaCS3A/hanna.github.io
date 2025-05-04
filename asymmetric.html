@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>Asymmetric Encryption (RSA)</h2>
+<form method="post">
+    <input type="text" name="text" placeholder="Enter text" required><br>
+    <select name="operation">
+        <option value="encrypt">Encrypt</option>
+        <option value="decrypt">Decrypt</option>
+    </select><br>
+    <button type="submit">Submit</button>
+</form>
+{% if result %}
+<p><strong>Result:</strong> {{ result }}</p>
+{% endif %}
+{% endblock %}
