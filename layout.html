@@ -5,15 +5,21 @@
     <title>CryptX</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <div class="navbar">
-        <a href="{{ url_for('home') }}">Home</a>
-        <a href="{{ url_for('symmetric') }}">Symmetric</a>
-        <a href="{{ url_for('asymmetric') }}">Asymmetric</a>
-        <a href="{{ url_for('hash_text') }}">Hash</a>
-    </div>
-    <div class="content">
+<body class="light-mode">
+    <nav class="navbar">
+        <span class="logo">🔐 CryptX</span>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('symmetric') }}">Symmetric</a>
+            <a href="{{ url_for('asymmetric') }}">Asymmetric</a>
+            <a href="{{ url_for('hash_text') }}">Hash</a>
+            <button id="toggle-theme" class="theme-btn">🌓</button>
+        </div>
+    </nav>
+    <main class="content animate">
         {% block content %}{% endblock %}
-    </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
