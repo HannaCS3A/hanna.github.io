@@ -1,17 +1,17 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h2>Hash Functions</h2>
-<form method="post">
-    <input type="text" name="text" placeholder="Enter text" required><br>
-    <select name="algorithm">
+<h2 class="text-xl font-bold mb-4">Hash Functions</h2>
+<form method="post" class="space-y-4">
+    <input type="text" name="text" placeholder="Enter text" required class="w-full p-2 border rounded">
+    <select name="algorithm" class="w-full p-2 border rounded">
         <option value="md5">MD5</option>
         <option value="sha1">SHA1</option>
         <option value="sha256">SHA256</option>
         <option value="sha512">SHA512</option>
-    </select><br>
-    <button type="submit">Hash</button>
+    </select>
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Hash</button>
 </form>
 {% if result %}
-<p><strong>Hash:</strong> {{ result }}</p>
+<p class="mt-4 text-green-700"><strong>Hash:</strong> {{ result }}</p>
 {% endif %}
 {% endblock %}
