@@ -95,6 +95,19 @@ button:hover {
     color: #065f46;
     border-radius: 6px;
     font-weight: 500;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.result-text {
+    white-space: pre-wrap;
+    word-break: break-word;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #f3f4f6;
+    color: #111827;
 }
 
 .dark-mode .result {
@@ -109,4 +122,38 @@ button:hover {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+input[type="text"], 
+select, 
+textarea.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    max-height: 160px;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.form-row > div {
+    flex: 1;
+    min-width: 45%;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-weight: 500;
 }

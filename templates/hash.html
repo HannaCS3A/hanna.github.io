@@ -11,7 +11,11 @@
     </select>
     <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Hash</button>
 </form>
+
 {% if result %}
-<p class="mt-4 text-green-700"><strong>Hash:</strong> {{ result }}</p>
+    <div class="result mt-4">
+        <p class="text-green-700"><strong>Hash:</strong></p>
+        <p class="result-text">{{ result }}</p>
+    </div>
 {% endif %}
 {% endblock %}
