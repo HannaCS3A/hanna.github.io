@@ -1,13 +1,22 @@
 {% extends 'layout.html' %}
+
 {% block content %}
-<h2 class="text-xl font-bold mb-4">Asymmetric Encryption (RSA)</h2>
+<h2 class="text-xl font-bold mb-4">Asymmetric Encryption</h2>
 
 <form method="post" class="space-y-4">
+    <div>
+        <label for="algorithm">Select Algorithm</label>
+        <select name="algorithm" id="algorithm" class="form-control">
+            <option value="rsa">RSA</option>
+            <option value="ecies">ECIES</option>
+        </select>
+    </div>
+
     <div>
         <label for="text">Text to Encrypt or Decrypt</label>
         <input type="text" name="text" id="text" class="form-control" required>
     </div>
-    
+
     <div>
         <label for="operation">Select Operation</label>
         <select name="operation" id="operation" class="form-control">
@@ -16,17 +25,18 @@
         </select>
     </div>
 
-    <div class="form-row">
-        <div>
-            <label for="public_key">Public Key</label>
-            <textarea name="public_key" id="public_key" class="form-control" rows="4"></textarea>
-        </div>
-        <div>
-            <label for="private_key">Private Key</label>
-            <textarea name="private_key" id="private_key" class="form-control" rows="4"></textarea>
+    <div id="public-private-keys">
+        <div class="form-row">
+            <div>
+                <label for="public_key">Public Key</label>
+                <textarea name="public_key" id="public_key" class="form-control" rows="4"></textarea>
+            </div>
+            <div>
+                <label for="private_key">Private Key</label>
+                <textarea name="private_key" id="private_key" class="form-control" rows="4"></textarea>
+            </div>
         </div>
     </div>
-      
 
     <div class="form-row" style="margin-top: 1rem;">
         <button type="button" id="generate-keys-btn" class="bg-green-600 hover:bg-green-700">
