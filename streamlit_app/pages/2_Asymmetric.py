@@ -2,13 +2,20 @@ import streamlit as st
 from algorithms.rsa import generate_rsa_key_pair, rsa_encrypt, rsa_decrypt
 from algorithms.ecies import generate_ecies_key_pair, ecies_encrypt, ecies_decrypt
 
-st.title("Asymmetric Encryption")
+st.title("🔑 Asymmetric Encryption")
+
+st.markdown("""
+Choose between **RSA** or **ECIES** encryption.  
+- RSA uses public/private PEM keys.  
+- ECIES uses hex-encoded keys.
+
+Use the **Generate Key Pair** button to create new keys and populate the fields.
+""")
 
 algorithm = st.selectbox("Select Algorithm", ["RSA", "ECIES"])
 text = st.text_input("Text to Encrypt or Decrypt", key="text_input")
-operation = st.selectbox("Operation", ["Encrypt", "Decrypt"])
+operation = st.selectbox("Operation", ["Encrypt", "Decrypt"], help="Select whether to encrypt or decrypt the message.")
 
-# Initialize session state if not already present
 st.session_state.setdefault("rsa_pub", "")
 st.session_state.setdefault("rsa_priv", "")
 st.session_state.setdefault("ecies_pub", "")
@@ -23,11 +30,11 @@ if algorithm == "RSA":
 
     col1, col2 = st.columns(2)
     with col1:
-        st.text_area("Public Key (PEM)", value=st.session_state["rsa_pub"], key="rsa_pub", height=150)
+        st.text_area("Public Key (PEM)", value=st.session_state["rsa_pub"], key="rsa_pub", height=150, help="Paste the RSA public key here.")
     with col2:
-        st.text_area("Private Key (PEM)", value=st.session_state["rsa_priv"], key="rsa_priv", height=150)
+        st.text_area("Private Key (PEM)", value=st.session_state["rsa_priv"], key="rsa_priv", height=150, help="Paste the RSA private key here.")
 
-    if st.button("Submit RSA"):
+    if st.button(operation):
         if not text.strip() or (operation == "Encrypt" and not st.session_state.rsa_pub.strip()) or (operation == "Decrypt" and not st.session_state.rsa_priv.strip()):
             st.error("Text and the appropriate RSA key must be provided.")
         else:
@@ -47,11 +54,11 @@ elif algorithm == "ECIES":
 
     col1, col2 = st.columns(2)
     with col1:
-        st.text_input("Public Key (hex)", value=st.session_state.ecies_pub, key="ecies_pub")
+        st.text_input("Public Key (hex)", value=st.session_state.ecies_pub, key="ecies_pub", help="Paste the Public Key (hex) here.")
     with col2:
-        st.text_input("Private Key (hex)", value=st.session_state.ecies_priv, key="ecies_priv")
+        st.text_input("Private Key (hex)", value=st.session_state.ecies_priv, key="ecies_priv", help="Paste the Private Key (hex) here.")
 
-    if st.button("Submit ECIES"):
+    if st.button(operation):
         if not text.strip() or (operation == "Encrypt" and not st.session_state.ecies_pub.strip()) or (operation == "Decrypt" and not st.session_state.ecies_priv.strip()):
             st.error("Text and the appropriate ECIES key must be provided.")
         else:
