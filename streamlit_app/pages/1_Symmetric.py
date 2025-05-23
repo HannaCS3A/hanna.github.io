@@ -1,6 +1,11 @@
 import streamlit as st
 from algorithms.aes import aes_encrypt, aes_decrypt
 from algorithms.caesar_xor import caesar_encrypt, caesar_decrypt, xor_encrypt, xor_decrypt
+from algorithms.file_symmetric import (
+    aes_encrypt_file, aes_decrypt_file,
+    caesar_encrypt_file, caesar_decrypt_file,
+    xor_encrypt_file, xor_decrypt_file
+)
 
 st.title("🔒 Symmetric Encryption")
 
@@ -19,8 +24,7 @@ operation = st.selectbox("Operation", ["Encrypt", "Decrypt"], help="Choose wheth
 # AES section
 if algorithm == "AES":
     key = st.text_input("Key (Secret)", type="password", help="Enter a passphrase to be hashed as AES key.")
-    
-    if st.button(operation):
+    if st.button(operation, key="aes_text_op"):
         if not text.strip() or not key.strip():
             st.error("Text and key must be provided.")
         else:
@@ -34,8 +38,7 @@ if algorithm == "AES":
 # Caesar Cipher section
 elif algorithm == "Caesar Cipher":
     shift = st.number_input("Shift Value", step=1, format="%d", help="Enter the number of positions to shift.")
-
-    if st.button(operation):
+    if st.button(operation, key="caesar_text_op"):
         if not text.strip():
             st.error("Text input is required.")
         else:
@@ -50,8 +53,7 @@ elif algorithm == "Caesar Cipher":
 # XOR Cipher section
 elif algorithm == "XOR Cipher":
     key = st.number_input("Byte Key (0-255)", min_value=0, max_value=255, step=1, help="Enter a byte value to XOR with the text.")
-
-    if st.button(operation):
+    if st.button(operation, key="xor_text_op"):
         if not text.strip():
             st.error("Text input is required.")
         else:
@@ -64,12 +66,6 @@ elif algorithm == "XOR Cipher":
                 st.error(f"Error: {e}")
 
 # File Encryption section
-from algorithms.file_symmetric import (
-    aes_encrypt_file, aes_decrypt_file,
-    caesar_encrypt_file, caesar_decrypt_file,
-    xor_encrypt_file, xor_decrypt_file
-)
-
 st.markdown("---")
 st.subheader("File Encryption/Decryption")
 
@@ -84,7 +80,8 @@ elif algorithm == "Caesar Cipher":
 elif algorithm == "XOR Cipher":
     file_key_input = st.number_input("Byte Key (XOR)", min_value=0, max_value=255, step=1, key="file_xor_key")
 
-if st.button(file_operation):
+# Fix duplicate ID error by assigning a unique key
+if st.button(file_operation, key=f"{algorithm}_{file_operation}_file_op"):
     if uploaded_file is None:
         st.error("Please upload a file to encrypt or decrypt.")
     else:
@@ -107,4 +104,3 @@ if st.button(file_operation):
             st.download_button("Download Result", result_bytes, file_name=f"processed_{uploaded_file.name}")
         except Exception as e:
             st.error(f"Error: {e}")
-
