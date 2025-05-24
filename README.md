@@ -26,4 +26,13 @@ Each cryptographic feature in Crypto Gadget is designed with an educational obje
 
 Sample Runs/Outputs:
 ![alt text](image.png)
+The homepage of the website will host all of the tools that are available to use
 
+![alt text](image-1.png)
+If you chose Symmetric Encryption, it will prompt you to choose a algorithm and enter a text to encrypt or decrypt, will let you choose the operation if to encrypt or decrypt, then will let you enter the key you want then just press encrypt.
+
+![alt text](image-2.png)
+In the Assymetric encryption, it is almost the same to symmetric encryption but instead of a key, a public and private key would be asked.
+
+![alt text](image-3.png)
+In this page, you will just enter a text and it will simply hash it.
