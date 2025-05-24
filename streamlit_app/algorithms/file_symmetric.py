@@ -1,7 +1,6 @@
 import base64
 import hashlib
 from Crypto.Cipher import AES
-import os
 
 # for file encryption on AES, Caesar, and XOR Ciphers
 
