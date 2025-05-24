@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from algorithms.aes import encrypt_text, decrypt_text  
 from algorithms.rsa_encrypt import encrypt_text as rsa_encrypt_text, decrypt_text as rsa_decrypt_text, generate_keys
 from algorithms.hash_utils import hash_text
+from algorithms.ecies_encrypt import generate_keys as generate_ec_keys, ecies_encrypt_text, ecies_decrypt_text
 import os
 
 app = Flask(__name__)
@@ -15,6 +16,22 @@ def home():
 @app.route('/generate_keys', methods=['GET'])
 def generate_keys_route():
     private_key, public_key = generate_keys()
+    return jsonify({
+        'public_key': public_key.decode(),
+        'private_key': private_key.decode()
+    })
+
+@app.route('/generate_rsa_keys', methods=['GET'])
+def generate_rsa_keys_route():
+    private_key, public_key = generate_rsa_keys()
+    return jsonify({
+        'public_key': public_key.decode(),
+        'private_key': private_key.decode()
+    })
+
+@app.route('/generate_ec_keys', methods=['GET'])
+def generate_ec_keys_route():
+    private_key, public_key = generate_ec_keys()
     return jsonify({
         'public_key': public_key.decode(),
         'private_key': private_key.decode()
@@ -57,6 +74,28 @@ def asymmetric():
 
     return render_template('asymmetric.html', result=result)
 
+@app.route('/ecies', methods=['GET', 'POST'])
+def ecies():
+    result = ""
+    if request.method == 'POST':
+        text = request.form.get('text')
+        operation = request.form.get('operation')
+        public_key = request.form.get('public_key')
+        private_key = request.form.get('private_key')
+
+        try:
+            if operation == 'encrypt' and public_key:
+                result = ecies_encrypt_text(text, public_key)
+            elif operation == 'decrypt' and private_key:
+                result = ecies_decrypt_text(text, private_key)
+            else:
+                result = "Missing required key input."
+        except ValueError as ve:
+            result = f"Key error: {str(ve)}"
+        except Exception as e:
+            result = f"Unexpected error: {str(e)}"
+
+    return render_template('ecies.html', result=result)
 
 @app.route('/hash', methods=['GET', 'POST'])
 def hash_text_route():
